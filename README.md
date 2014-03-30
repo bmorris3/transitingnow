@@ -13,3 +13,6 @@ A TwitterBot project that retrieves the exoplanet database from [exoplanets.org]
 * [Numpy](http://www.scipy.org/) for pseudorandom number generation
 * [Astropy](http://www.astropy.org/) for converting between Julian and Gregorian dates
 * [PyEphem](http://rhodesmill.org/pyephem/) for identifying the constellations of planet-hosting stars
+
+
+Shout out to @jraddavenport for introducing me to how to use Tweepy via his project [@Mock_twain](https://github.com/jradavenport/twainbot). 
