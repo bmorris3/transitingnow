@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 """
-Run this via cron every minute. It will open the tweet dictionary and do a 
+Run this via crontab every minute. It will open the tweet dictionary and do a 
 lookup for the current minute. If there is no key for the current minute, it 
 will close. It may seem excessive to run it once a minute, but the dictionary
 lookup is really fast, so I don't notice its effects on my computer. 
 
+By Brett Morris (@brettmor) for @transitingnow
+Code posted at https://github.com/bmorris3/transitingnow
 """
 import tweepy
 import cPickle

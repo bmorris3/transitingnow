@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 '''
-Update the list of transiting events occuring in the next ~24 hours
+This script does most of the hard work! Update the list of transiting events 
+occuring in the next ~24 hours. Run this script via crontab every night.
 
-Run this script via cron every night
+By Brett Morris (@brettmor) for @transitingnow
+Code posted at https://github.com/bmorris3/transitingnow
 '''
 
 import ephem	 ## PyEphem module

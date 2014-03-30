@@ -6,6 +6,9 @@ posted about soon.
 Example: 
 $ python shownextevents.py        ## Returns events in the next 15 min (default)
 $ python shownextevents.py 60     ## Returns events i the next 60 min
+
+By Brett Morris (@brettmor) for @transitingnow
+Code posted at https://github.com/bmorris3/transitingnow
 """
 import datetime
 import cPickle
