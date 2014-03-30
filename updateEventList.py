@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-This script does most of the hard work! Update the list of transiting events 
+This script does most of the hard work! Update the list of transiting events
 occuring in the next ~24 hours. Run this script via crontab every night.
 
 By Brett Morris (@brettmor) for @transitingnow
@@ -19,10 +19,10 @@ import datetime
 from numpy.random import randint
 
 # Set some paths to important directories here
-rootdir = './.' # Replace this string with the absolute path to the 
-                # transitingnow directory. This should be an absolute path if 
+rootdir = './.' # Replace this string with the absolute path to the
+                # transitingnow directory. This should be an absolute path if
                 # you planet to run your Twitterbot via crontab, like I do.
- 
+
 exodbPath = rootdir+'exodb'  # The absolute path to the exoplanet database files
 
 
@@ -65,11 +65,11 @@ def downloadAndPickle():
     Download the .ZIP archive of the exoplanets.org planet database from their
     website, unpack the archive, and convert the .CSV table into a Python
     dictionary. Save that dictionary with the cPickle module for fast loading.
-    
+
     If there is already a .PKL or .CSV file in the exoplanet database directory,
     use that one. There is a feature that doesn't work perfectly here that should
-    be checking to see if the file is more than a week old, and downloading a 
-    new one if so. 
+    be checking to see if the file is more than a week old, and downloading a
+    new one if so.
     '''
     pklDatabaseName = os.path.join(exodbPath,'exoplanetDB.pkl')	 ## Name of exoplanet database C-pickle
     pklDatabasePaths = glob(pklDatabaseName)   ## list of files with the name pklDatabaseName in cwd
@@ -186,7 +186,7 @@ for planet in allplanets:
     period = float(exoplanetDB[planet]['PER'])
     upcoming_transits = midTransit(transit_epoch,period,start_date,end_date)
 
-    # If there is one or more transit occurring within `buildDBforNdays` days, 
+    # If there is one or more transit occurring within `buildDBforNdays` days,
     if len(upcoming_transits) > 0:
         # For each of those transits, assemble the tweet data!
         for transit in upcoming_transits:
@@ -196,28 +196,28 @@ for planet in allplanets:
             star._dec = ephem.degrees(exoplanetDB[planet]['DEC_STRING'])
             star.compute()
             const = ephem.constellation(star)[1] # This is the full cnstellation name
-            
+
             # Fetch the radius of the planet
             radius = float(exoplanetDB[planet]['R'])
             transittime = transit
-            
-            # Identify the minute during which the mid-transit time occurs. 
+
+            # Identify the minute during which the mid-transit time occurs.
             # This is the basis for how the transt tweet will be stored, since
             # tweets will be updated once per minute via crontab
             transitminute = jd2gd(transit)[:-7]
 
-            # Start building the tweet! The first part will say which planet 
+            # Start building the tweet! The first part will say which planet
             # is transiting
             planetline = "%s is transiting now" % planet
 
-            # If there is a measurd distance to this planet and the tweet is 
+            # If there is a measurd distance to this planet and the tweet is
             # short enough, add in distance.
             distanceline = ""
             if exoplanetDB[planet]['DIST'] != '':
                 distance = float(exoplanetDB[planet]['DIST'])*lyperpc
                 distanceline = "%i ly away" % distance
 
-            # If there is an effective temperature and tweet is short enough, 
+            # If there is an effective temperature and tweet is short enough,
             # add it in!
             Teffline = ""
             if exoplanetDB[planet]['TEFF'] != '':
@@ -230,9 +230,9 @@ for planet in allplanets:
             # Name the constellation
             constellationline = "in %s" % const
 
-            # The `radius` parameter is in units of Jupiter radii. Build a 
-            # sentence comparing the radius to either Jupiter's or Earth's, 
-            # depending on which is appropriate. 
+            # The `radius` parameter is in units of Jupiter radii. Build a
+            # sentence comparing the radius to either Jupiter's or Earth's,
+            # depending on which is appropriate.
             if radius > 1:
                 sizeline = "%.1fx larger than Jupiter" % (radius)
             elif radius <= 1 and radius > R_earth/R_jupiter:
@@ -288,7 +288,7 @@ for planet in allplanets:
             else:
                 tweetline = option2
 
-            # If the tweet built is indeed <=140 characters, add it to the 
+            # If the tweet built is indeed <=140 characters, add it to the
             # dictionary of tweets to post
             if len(tweetline) <= 140:
                 eventfile.write(tweetline+'\n')     # tweet text file

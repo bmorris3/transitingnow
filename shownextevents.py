@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Run this via the command line to check what tranit events are going to be
-posted about soon. 
+posted about soon.
 
-Example: 
+Example:
 $ python shownextevents.py        ## Returns events in the next 15 min (default)
 $ python shownextevents.py 60     ## Returns events i the next 60 min
 
@@ -15,8 +15,8 @@ import cPickle
 import sys
 
 ### read in the list of tweets, already defined in MOCK_PREP.py
-rootdir = './.' # Replace this string with the absolute path to the 
-                # transitingnow directory. This should be an absolute path if 
+rootdir = './.' # Replace this string with the absolute path to the
+                # transitingnow directory. This should be an absolute path if
                 # you planet to run your Twitterbot via crontab, like I do.
 tweet_file = open(rootdir+'tweet_dict.pkl','rb')
 tweet_dict = cPickle.load(tweet_file)
@@ -40,7 +40,7 @@ for minute_increment in range(Nminutes):
 
 upcoming_transits = []
 for minute in each_minute:
-    try: 
+    try:
         transits_happening_now = tweet_dict[minute]
 
         Ntransits = len(transits_happening_now) # Number of transits occuring in the next minute
@@ -48,7 +48,7 @@ for minute in each_minute:
         if Ntransits > 0:
             for tweet in transits_happening_now:
                 upcoming_transits.append([minute, tweet])
-    except KeyError: 
+    except KeyError:
         pass
 
 print "\nUpcoming transits in the next %i minutes:\n" % Nminutes
